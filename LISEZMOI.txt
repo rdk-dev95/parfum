@@ -1,0 +1,20 @@
+PARFUM — application de collection de parfums (PWA)
+
+Installer sur iPhone
+1. Hébergez ce dossier tel quel sur un site en HTTPS
+   (Netlify Drop, GitHub Pages, Vercel, Cloudflare Pages ou votre propre hébergement).
+2. Ouvrez l'adresse dans Safari.
+3. Partager > « Sur l'écran d'accueil » > Ajouter.
+
+Contenu
+- index.html             l'application complète
+- manifest.webmanifest   nom, icônes, mode plein écran
+- sw.js                  service worker (fonctionne hors ligne)
+- icons/                 icônes de l'app
+
+Données
+Tout est enregistré sur l'appareil (IndexedDB), photos comprises.
+Paramètres > Exporter crée une sauvegarde .json ; Importer la restaure.
+Chaque fiche porte id, createdAt et updatedAt pour une future synchronisation cloud.
+
+Tester en local : python3 -m http.server 8000 dans ce dossier, puis http://localhost:8000

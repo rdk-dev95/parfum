@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Votre collection personnelle de parfums.">
+<meta name="theme-color" content="#0c0c0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Parfum">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<script>
+try{var s=JSON.parse(localStorage.getItem("parfum.settings")||"{}");if(s.theme==="light"||s.theme==="dark")document.documentElement.setAttribute("data-mode",s.theme);}catch(e){}
+</script>
+<style>:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Parfum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:wght@500;600;700&display=swap">
+<style>
+/* Layout : une colonne mobile-first, panneaux de verre posés sur une lumière graphite diffuse ; grille 2 → 3 → 4 colonnes */
+:root{
+  --bg:#e9eaec; --ink:#16171a; --ink-2:#5a5d64; --ink-3:#8d9098;
+  --line:rgba(22,23,26,.09); --line-strong:rgba(22,23,26,.18);
+  --glass-rgb:255,255,255; --hi:rgba(255,255,255,.95);
+  --shadow:0 10px 28px rgba(28,32,40,.08),0 1px 2px rgba(28,32,40,.05);
+  --amb-1:rgba(255,255,255,.95); --amb-2:rgba(255,255,255,.6); --amb-3:rgba(150,155,165,.22);
+  --img-1:#f6f7f8; --img-2:#d9dbdf;
+  --bottle-glass:#202125; --bottle-cap:#0f1012; --bottle-clear:rgba(112,118,128,.34); --bottle-hi:rgba(255,255,255,.3);
+  --bottle-label:#e4e5e8; --bottle-shadow:rgba(0,0,0,.16);
+  --solid:#ffffff; --chip:rgba(22,23,26,.055); --chip-on:#16171a; --chip-on-ink:#ffffff;
+  --danger:#b42318; --track:rgba(22,23,26,.08); --bar:#3a3c42; --scrim:rgba(20,22,26,.28);
+  --mode-dark:0;
+  --font-display:"Marcellus","Optima","Candara","Didot",serif;
+  --font-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  --blur:24px; --ga:.5; --dur:.34s; --ease:cubic-bezier(.22,.8,.24,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]):not([data-mode="light"]){
+    --bg:#0c0c0e; --ink:#f5f5f6; --ink-2:#a7a9af; --ink-3:#73767d;
+    --line:rgba(255,255,255,.1); --line-strong:rgba(255,255,255,.2);
+    --glass-rgb:72,73,78; --hi:rgba(255,255,255,.16); --shadow:0 16px 40px rgba(0,0,0,.5);
+    --amb-1:rgba(255,255,255,.11); --amb-2:rgba(255,255,255,.05); --amb-3:rgba(0,0,0,.55);
+    --img-1:#3c3d42; --img-2:#17181b;
+    --bottle-glass:#0d0e10; --bottle-cap:#040405; --bottle-clear:rgba(205,210,218,.17); --bottle-hi:rgba(255,255,255,.15);
+    --bottle-label:#c9cbd0; --bottle-shadow:rgba(0,0,0,.55);
+    --solid:#1c1d20; --chip:rgba(255,255,255,.075); --chip-on:#f5f5f6; --chip-on-ink:#111214;
+    --danger:#ff7b6f; --track:rgba(255,255,255,.08); --bar:#d6d8dc; --scrim:rgba(0,0,0,.5);
+    --mode-dark:1; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]:not([data-mode="light"]), :root[data-mode="dark"]{
+    --bg:#0c0c0e; --ink:#f5f5f6; --ink-2:#a7a9af; --ink-3:#73767d;
+    --line:rgba(255,255,255,.1); --line-strong:rgba(255,255,255,.2);
+    --glass-rgb:72,73,78; --hi:rgba(255,255,255,.16); --shadow:0 16px 40px rgba(0,0,0,.5);
+    --amb-1:rgba(255,255,255,.11); --amb-2:rgba(255,255,255,.05); --amb-3:rgba(0,0,0,.55);
+    --img-1:#3c3d42; --img-2:#17181b;
+    --bottle-glass:#0d0e10; --bottle-cap:#040405; --bottle-clear:rgba(205,210,218,.17); --bottle-hi:rgba(255,255,255,.15);
+    --bottle-label:#c9cbd0; --bottle-shadow:rgba(0,0,0,.55);
+    --solid:#1c1d20; --chip:rgba(255,255,255,.075); --chip-on:#f5f5f6; --chip-on-ink:#111214;
+    --danger:#ff7b6f; --track:rgba(255,255,255,.08); --bar:#d6d8dc; --scrim:rgba(0,0,0,.5);
+    --mode-dark:1; color-scheme:dark;
+}
+:root[data-mode="light"]{color-scheme:light}
+:root[data-font="manrope"]{--font-body:"Manrope",-apple-system,"Helvetica Neue",Arial,sans-serif}
+:root[data-font="dmsans"]{--font-body:"DM Sans",-apple-system,"Helvetica Neue",Arial,sans-serif}
+:root[data-font="cormorant"]{--font-body:"Cormorant Garamond","Garamond","Times New Roman",serif}
+:root[data-motion="reduced"]{--dur:.14s}
+:root[data-motion="none"] *, :root[data-motion="none"] *::before{transition:none!important;animation:none!important}
+@media (prefers-reduced-motion: reduce){:root{--dur:.12s}}
+
+*{box-sizing:border-box}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1rem;line-height:1.4;
+  -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;min-height:100%;overscroll-behavior-y:none}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(90% 55% at 100% 0%,var(--amb-1),transparent 62%),
+  linear-gradient(118deg,transparent 30%,var(--amb-2) 46%,transparent 62%),
+  radial-gradient(90% 55% at 0% 100%,var(--amb-3),transparent 70%),var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,label:focus-within{outline:2px solid var(--ink-3);outline-offset:2px}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.sm{width:18px;height:18px}
+.ic.lg{width:26px;height:26px}
+.num{font-variant-numeric:tabular-nums}
+
+/* verre */
+.glass{background:rgba(var(--glass-rgb),var(--ga));-webkit-backdrop-filter:blur(var(--blur)) saturate(150%);backdrop-filter:blur(var(--blur)) saturate(150%);
+  border:1px solid var(--line);box-shadow:inset 0 1px 0 var(--hi),var(--shadow)}
+:root[data-cards="mat"] .card{background:var(--solid);-webkit-backdrop-filter:none;backdrop-filter:none}
+:root[data-cards="contour"] .card{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;border-color:var(--line-strong)}
+
+.page{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:22px calc(178px + env(safe-area-inset-bottom,0px))}
+.page > * + *{margin-top:16px}
+
+/* en-tête */
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-top:12px;margin-bottom:22px}
+.brandmark h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2rem,9vw,2.6rem);letter-spacing:.3em;margin:0;line-height:1}
+.brandmark p{font-size:.64rem;letter-spacing:.52em;color:var(--ink-2);margin:.85rem 0 0;text-transform:uppercase;line-height:1.3}
+.theme-toggle{display:flex;align-items:center;border-radius:999px;padding:5px;flex:none}
+.theme-toggle button{width:44px;height:40px;display:grid;place-items:center;border-radius:999px;color:var(--ink-3);transition:color var(--dur),background var(--dur)}
+.theme-toggle button.on{color:var(--ink);background:var(--chip)}
+.theme-toggle .sep{width:1px;height:22px;background:var(--line-strong)}
+
+.view-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding-top:12px;margin-bottom:18px}
+.view-head h2{font-family:var(--font-display);font-weight:400;font-size:2rem;letter-spacing:.06em;margin:0;line-height:1.05}
+.view-head p{margin:.4rem 0 0;color:var(--ink-2);font-size:.88rem}
+
+/* recherche */
+.search{display:flex;align-items:center;gap:10px;border-radius:999px;height:56px;padding:0 8px 0 20px}
+.search .ic{color:var(--ink-2)}
+.search input{flex:1;min-width:0;border:0;background:transparent;font-size:max(16px,1rem);outline:none;height:100%}
+.search input::placeholder{color:var(--ink-3)}
+.search input::-webkit-search-cancel-button{display:none}
+.search .clear{width:32px;height:32px;display:grid;place-items:center;color:var(--ink-3)}
+.search .div{width:1px;height:28px;background:var(--line-strong)}
+.search .filter-btn{position:relative;width:44px;height:44px;display:grid;place-items:center;border-radius:999px}
+.badge{position:absolute;top:4px;right:3px;min-width:17px;height:17px;border-radius:9px;background:var(--chip-on);color:var(--chip-on-ink);font-size:.66rem;font-weight:600;display:grid;place-items:center;padding:0 4px}
+
+/* tuiles */
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tile{border-radius:22px;padding:14px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;transition:transform var(--dur) var(--ease)}
+.tile:active{transform:scale(.97)}
+.tile .ic{margin-bottom:4px}
+.tile strong{font-size:1.28rem;font-weight:600;line-height:1.1;white-space:nowrap}
+.tile span{font-size:.74rem;color:var(--ink-2);white-space:nowrap}
+.tile.on{outline:1.5px solid var(--ink-2);outline-offset:-1.5px}
+@media (max-width:360px){.tile strong{font-size:1.08rem}.tile span{font-size:.68rem}}
+
+.note-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:18px;padding:10px 10px 10px 16px;font-size:.84rem;color:var(--ink-2)}
+.note-bar button{flex:none}
+.link-btn{font-size:.84rem;font-weight:600;color:var(--ink);padding:8px 12px;border-radius:999px;background:var(--chip)}
+
+/* grille de cartes */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (min-width:640px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:980px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.card{position:relative;border-radius:26px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;min-width:0;
+  transition:transform var(--dur) var(--ease);animation:rise var(--dur) var(--ease) both}
+.card:active{transform:scale(.98)}
+@keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+.visual{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 18%,var(--img-1),var(--img-2))}
+.visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.visual .bottle{position:absolute;left:50%;bottom:5%;height:86%;transform:translateX(-50%)}
+.card .visual{aspect-ratio:1/.86;max-width:100%}
+.fav{position:absolute;top:8px;right:8px;width:40px;height:40px;display:grid;place-items:center;border-radius:999px;color:#fff;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.35));transition:transform var(--dur) var(--ease)}
+.fav:active{transform:scale(.85)}
+.fav.on .ic{fill:currentColor}
+.visual.ph .fav{color:var(--ink);filter:none}
+.card-body{position:relative;padding:12px 14px 14px;min-width:0;flex:1;display:flex;flex-direction:column}
+.card-body h3{margin:0;font-size:1.02rem;font-weight:600;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-body .brand{margin:2px 0 0;font-size:.86rem;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-meta{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;margin-top:auto;padding-top:10px;padding-right:40px;min-height:40px}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 9px;font-size:.74rem;color:var(--ink-2);background:var(--chip);border:1px solid var(--line);white-space:nowrap}
+.price{font-weight:600;font-size:.95rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.go{position:absolute;right:10px;bottom:12px;width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--chip);border:1px solid var(--line)}
+.ex-tag{position:absolute;left:10px;top:10px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 8px;border-radius:999px;
+  background:rgba(0,0,0,.42);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.grid.is-list{grid-template-columns:minmax(0,1fr);gap:10px}
+@media (min-width:760px){.grid.is-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.grid.is-list .card{flex-direction:row;border-radius:22px}
+.grid.is-list .card .visual{aspect-ratio:1/1;width:96px;flex:none}
+.grid.is-list .visual .fav,.grid.is-list .ex-tag{display:none}
+.grid.is-list .card-body{padding:12px 14px}
+.grid.is-list .card-meta{min-height:0;padding-top:8px}
+
+/* état vide */
+.empty{border-radius:28px;padding:34px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.empty .ic{width:34px;height:34px;color:var(--ink-3)}
+.empty h3{margin:4px 0 0;font-size:1.1rem;font-weight:600}
+.empty p{margin:0;color:var(--ink-2);font-size:.9rem;max-width:34ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;font-weight:600;font-size:.95rem;
+  background:var(--chip-on);color:var(--chip-on-ink);transition:transform var(--dur) var(--ease),opacity var(--dur)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--chip);color:var(--ink);border:1px solid var(--line)}
+.btn.danger{background:transparent;color:var(--danger);border:1px solid color-mix(in srgb,var(--danger) 40%,transparent)}
+.btn.danger.solid{background:var(--danger);color:#fff;border-color:transparent}
+.btn[disabled]{opacity:.5}
+
+/* collection */
+.seg-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:-4px;padding:2px 4px}
+.seg-scroll::-webkit-scrollbar{display:none}
+.chip{flex:none;height:38px;padding:0 16px;border-radius:999px;font-size:.88rem;background:var(--chip);border:1px solid var(--line);white-space:nowrap;transition:background var(--dur),color var(--dur)}
+.chip.on{background:var(--chip-on);color:var(--chip-on-ink);border-color:transparent}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.icon-btn{width:44px;height:44px;border-radius:999px;display:grid;place-items:center;flex:none}
+.view-switch{display:flex;border-radius:999px;padding:4px}
+.view-switch button{width:40px;height:36px;border-radius:999px;display:grid;place-items:center;color:var(--ink-3)}
+.view-switch button.on{background:var(--chip);color:var(--ink)}
+.stat-link{display:flex;align-items:center;gap:14px;border-radius:24px;padding:16px 16px;width:100%;text-align:left}
+.stat-link .k{flex:1;min-width:0}
+.stat-link strong{display:block;font-weight:600}
+.stat-link span{color:var(--ink-2);font-size:.84rem}
+.sort{display:flex;align-items:center;gap:8px;color:var(--ink-2);font-size:.86rem}
+.sort select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--chip);border-radius:999px;padding:8px 32px 8px 14px;font-size:max(16px,.9rem);color:var(--ink);
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-2) 50%),linear-gradient(135deg,var(--ink-2) 50%,transparent 50%);background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.group-h{display:flex;align-items:baseline;justify-content:space-between;margin:26px 2px 10px}
+.group-h h3{margin:0;font-family:var(--font-display);font-weight:400;font-size:1.2rem;letter-spacing:.08em}
+.group-h span{color:var(--ink-3);font-size:.8rem}
+
+/* wishlist */
+.wish{border-radius:24px;overflow:hidden;display:grid;grid-template-columns:112px minmax(0,1fr)}
+.wish .visual{min-height:132px}
+.wish-body{padding:14px 14px 12px;min-width:0;display:flex;flex-direction:column;gap:2px}
+.wish-body h3{margin:0;font-size:1.02rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wish-body .brand{margin:0;color:var(--ink-2);font-size:.86rem}
+.wish-body .notes{margin:6px 0 0;color:var(--ink-2);font-size:.84rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wish-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:10px}
+.mini{height:34px;padding:0 12px;border-radius:999px;font-size:.8rem;display:inline-flex;align-items:center;gap:6px;background:var(--chip);border:1px solid var(--line);color:var(--ink);text-decoration:none;white-space:nowrap}
+.mini.primary{background:var(--chip-on);color:var(--chip-on-ink);border-color:transparent}
+.mini.warn{color:var(--danger)}
+.stack{display:grid;gap:12px}
+@media (min-width:760px){.stack.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* réglages */
+.group{border-radius:24px;overflow:hidden}
+.group-title{margin:24px 6px 8px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;min-height:56px}
+.set-row + .set-row{border-top:1px solid var(--line)}
+.set-row > .k{min-width:0}
+.set-row .k strong{display:block;font-weight:500}
+.set-row .k span{display:block;color:var(--ink-3);font-size:.8rem;margin-top:2px}
+.set-row.col{flex-direction:column;align-items:stretch;gap:10px}
+.set-row .v{color:var(--ink-2);font-size:.86rem;font-variant-numeric:tabular-nums}
+.seg{display:flex;background:var(--chip);border-radius:999px;padding:3px;gap:2px;border:1px solid var(--line)}
+.seg button,.seg label{flex:1;height:36px;border-radius:999px;display:grid;place-items:center;font-size:.86rem;padding:0 10px;white-space:nowrap;color:var(--ink-2);cursor:pointer;transition:background var(--dur),color var(--dur)}
+.seg .on,.seg input:checked + span{background:var(--solid);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.seg label{padding:0}
+.seg label span{display:grid;place-items:center;width:100%;height:100%;border-radius:999px;transition:background var(--dur)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+input[type=range]{width:100%;accent-color:var(--ink);height:28px}
+.font-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.font-opts button{border-radius:16px;padding:12px;text-align:left;background:var(--chip);border:1px solid var(--line)}
+.font-opts button.on{border-color:var(--ink-2);background:var(--solid)}
+.font-opts b{display:block;font-size:1.1rem;font-weight:500}
+.font-opts small{color:var(--ink-3);font-size:.74rem}
+.steps{margin:0;padding-left:1.2em;color:var(--ink-2);font-size:.88rem;line-height:1.6}
+.foot{text-align:center;color:var(--ink-3);font-size:.76rem;margin-top:26px;letter-spacing:.08em}
+
+/* barre d'onglets */
+.tabbar{position:fixed;z-index:30;left:0;right:0;margin:0 auto;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);width:min(560px,calc(100% - 24px));
+  height:72px;border-radius:36px;display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:0 6px}
+.tabbar button{position:relative;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--ink-3);font-size:.7rem;transition:color var(--dur)}
+.tabbar button + button::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:1px;background:var(--line)}
+.tabbar button.on{color:var(--ink)}
+.tabbar button.on::after{content:"";position:absolute;bottom:3px;width:34px;height:2px;border-radius:2px;background:var(--ink)}
+.fab{position:fixed;z-index:29;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 96px);height:54px;padding:0 26px 0 22px;border-radius:999px;
+  display:flex;align-items:center;gap:12px;font-size:1rem;white-space:nowrap;transition:transform var(--dur) var(--ease)}
+.fab:active{transform:translateX(-50%) scale(.96)}
+
+/* pages superposées */
+.ov{position:fixed;inset:0;z-index:50;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  background:radial-gradient(90% 50% at 100% 0%,var(--amb-1),transparent 62%),radial-gradient(90% 55% at 0% 100%,var(--amb-3),transparent 70%),var(--bg);
+  transform:translateX(100%);transition:transform var(--dur) var(--ease);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 40px)}
+.ov.in{transform:none}
+.ov-inner{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ov-bar{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:10px}
+.ov-bar.solid{background:color-mix(in srgb,var(--bg) 78%,transparent);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);
+  margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ov-bar h2{flex:1;margin:0;text-align:center;font-size:1rem;font-weight:600}
+.ov-bar .spacer{flex:1}
+.txt-btn{height:40px;padding:0 14px;border-radius:999px;font-size:.95rem;color:var(--ink-2)}
+.txt-btn.strong{color:var(--chip-on-ink);background:var(--chip-on);font-weight:600}
+
+.hero{border-radius:32px;aspect-ratio:1/1;max-height:58vh;width:100%;max-width:100%;margin-top:4px}
+.hero .bottle{height:80%;bottom:8%}
+.d-head{margin:22px 4px 0}
+.d-head .eyebrow{margin:0;font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-2)}
+.d-head h1{margin:.4rem 0 0;font-family:var(--font-display);font-weight:400;font-size:clamp(1.9rem,8vw,2.6rem);line-height:1.1;letter-spacing:.02em;text-wrap:balance}
+.d-head .d-price{margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.d-head .d-price strong{font-size:1.4rem;font-weight:600}
+.specs{border-radius:24px;margin-top:20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.specs div{padding:14px 16px;border-top:1px solid var(--line);min-width:0}
+.specs div:nth-child(-n+2){border-top:0}
+.specs div:nth-child(odd){border-right:1px solid var(--line)}
+.specs dt{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.specs dd{margin:4px 0 0;font-weight:500;overflow-wrap:anywhere}
+.sec{border-radius:24px;padding:16px;margin-top:14px}
+.sec h3{margin:0 0 12px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.sec p{margin:0;white-space:pre-wrap;line-height:1.55}
+.pyr{display:grid;gap:12px}
+.pyr-row{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:start}
+.pyr-row > span{font-size:.8rem;color:var(--ink-3);padding-top:6px}
+.notes-chips{display:flex;flex-wrap:wrap;gap:6px}
+.notes-chips i{font-style:normal;font-size:.84rem;padding:5px 11px;border-radius:999px;background:var(--chip);border:1px solid var(--line)}
+.d-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:20px}
+.d-actions .btn{padding:0 10px;font-size:.88rem}
+.confirm{border-radius:24px;padding:16px;margin-top:20px;display:grid;gap:12px}
+.confirm p{margin:0}
+.confirm .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* formulaire */
+.f-sec{border-radius:24px;padding:16px;margin-top:14px;display:grid;gap:14px}
+.f-sec > h3{margin:0;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.field{display:grid;gap:6px;min-width:0}
+.field > span{font-size:.8rem;color:var(--ink-2)}
+.field > span em{font-style:normal;color:var(--ink-3)}
+.field input,.field select,.field textarea{width:100%;min-width:0;border:1px solid var(--line);background:var(--chip);border-radius:14px;padding:12px 14px;font-size:max(16px,1rem);outline:none;
+  transition:border-color var(--dur)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink-3)}
+.field textarea{min-height:92px;resize:vertical;line-height:1.45}
+.field select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink-2) 50%),linear-gradient(135deg,var(--ink-2) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 52%,calc(100% - 14px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:36px}
+.field input[type=date]{-webkit-appearance:none;appearance:none;min-height:48px}
+.field.err input{border-color:var(--danger)}
+.field .msg{color:var(--danger);font-size:.8rem}
+.f-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.photo{border-radius:28px;aspect-ratio:1/1;max-height:46vh;width:100%;max-width:100%;margin-top:6px}
+.photo-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:40px;height:40px;border-radius:999px;background:var(--chip);border:1px solid var(--line);display:grid;place-items:center}
+.stepper input{width:64px!important;text-align:center}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer}
+.switch input{position:absolute;opacity:0}
+.switch i{width:50px;height:30px;border-radius:999px;background:var(--track);position:relative;flex:none;transition:background var(--dur);border:1px solid var(--line)}
+.switch i::after{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform var(--dur) var(--ease)}
+.switch input:checked + i{background:var(--chip-on)}
+.switch input:checked + i::after{transform:translateX(20px);background:var(--chip-on-ink)}
+.hint{font-size:.78rem;color:var(--ink-3)}
+
+/* feuille du bas */
+.sheet-wrap{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.scrim{position:absolute;inset:0;background:var(--scrim);opacity:0;transition:opacity var(--dur)}
+.sheet-wrap.in .scrim{opacity:1}
+.sheet{position:relative;width:min(640px,100%);max-height:88vh;overflow-y:auto;overscroll-behavior:contain;border-radius:30px 30px 0 0;
+  background:rgba(var(--glass-rgb),.86);-webkit-backdrop-filter:blur(30px) saturate(160%);backdrop-filter:blur(30px) saturate(160%);
+  border:1px solid var(--line);border-bottom:0;box-shadow:inset 0 1px 0 var(--hi),0 -10px 40px rgba(0,0,0,.2);
+  transform:translateY(100%);transition:transform var(--dur) var(--ease);
+  padding:8px max(18px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 18px) max(18px,env(safe-area-inset-left,0px))}
+:root[data-mode="dark"] .sheet{background:rgba(32,33,36,.9)}
+.sheet-wrap.in .sheet{transform:none}
+.grabber{width:40px;height:5px;border-radius:3px;background:var(--line-strong);margin:4px auto 10px}
+.sheet h2{margin:0 0 4px;font-size:1.15rem;font-weight:600}
+.f-group{margin-top:18px}
+.f-group > h4{margin:0 0 10px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips .chip{height:36px;padding:0 14px;font-size:.86rem}
+.sheet-foot{position:sticky;bottom:calc(-1 * (env(safe-area-inset-bottom,0px) + 18px));display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:22px;padding-block:12px calc(env(safe-area-inset-bottom,0px) + 18px);
+  background:linear-gradient(transparent,rgba(var(--glass-rgb),.9) 30%)}
+
+/* statistiques */
+.st-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:8px}
+@media (min-width:640px){.st-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.st{border-radius:22px;padding:16px;min-width:0}
+.st span{display:block;font-size:.76rem;color:var(--ink-2)}
+.st strong{display:block;font-size:1.5rem;font-weight:600;margin-top:6px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st small{display:block;color:var(--ink-3);font-size:.74rem;margin-top:2px}
+.bars{display:grid;gap:12px}
+.bar-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.bar-row .l{font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-row .n{font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.bar-row .t{grid-column:1/-1;height:6px;border-radius:3px;background:var(--track);overflow:hidden}
+.bar-row .t b{display:block;height:100%;border-radius:3px;background:var(--bar);transform-origin:left;animation:grow calc(var(--dur) * 2) var(--ease) both}
+@keyframes grow{from{transform:scaleX(.2)}to{transform:none}}
+.split{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--track);gap:2px}
+.split b{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:.84rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:0}
+.fine{color:var(--ink-3);font-size:.78rem;margin:16px 4px 0;line-height:1.5}
+
+/* bandeau */
+.toast{position:fixed;z-index:80;left:50%;top:calc(env(safe-area-inset-top,0px) + 12px);transform:translate(-50%,-160%);border-radius:999px;padding:12px 20px;
+  font-size:.9rem;font-weight:500;max-width:calc(100% - 32px);text-align:center;transition:transform var(--dur) var(--ease);
+  background:rgba(var(--glass-rgb),.9);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);border:1px solid var(--line);box-shadow:var(--shadow)}
+.toast.in{transform:translate(-50%,0)}
+
+/* flacon dessiné (aucune photo) */
+.bottle .b-cap{fill:var(--bottle-cap)}
+.bottle .b-glass{fill:var(--bottle-glass)}
+.bottle .b-clear{fill:var(--bottle-clear);stroke:var(--bottle-hi);stroke-width:1}
+.bottle .b-hi{fill:var(--bottle-hi)}
+.bottle .b-lab{fill:var(--bottle-label)}
+.bottle .b-line{stroke:var(--bottle-hi);stroke-width:1;fill:none}
+.bottle .b-sh{fill:var(--bottle-shadow)}
+body.locked{overflow:hidden}
+</style>
+</head>
+<body>
+
+
+<main class="page" id="view" aria-live="polite"></main>
+<button class="fab glass" id="fab" data-act="add" type="button"></button>
+<nav class="tabbar glass" id="tabbar" aria-label="Navigation principale"></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="import-file" accept="application/json,.json" hidden>
+
+<script>
+"use strict";
+/* ============ Utilitaires ============ */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 10));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const parseNum = v => { if (v == null) return null; v = String(v).replace(/\s/g, "").replace(",", "."); if (v === "") return null; const n = Number(v); return Number.isFinite(n) && n >= 0 ? n : null; };
+const splitList = v => String(v || "").split(/[,;\n]/).map(x => x.trim()).filter(Boolean);
+const eurFmt = new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 2 });
+const money = n => (n == null || n === "" ? "—" : eurFmt.format(n));
+const compactMoney = n => n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(".", ",").replace(/,0$/, "") + " k€" : Math.round(n) + " €";
+const fmtDate = d => { if (!d) return "—"; const x = new Date(d + "T12:00:00"); return isNaN(x) ? d : x.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }); };
+const fmtVol = ml => ml >= 1000 ? (ml / 1000).toFixed(2).replace(".", ",").replace(/0$/, "").replace(/,0$/, "") + " L" : Math.round(ml) + " ml";
+const inFrame = (() => { try { return window.self !== window.top; } catch { return true; } })();
+const isStandalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+
+const CONC = [["EDC", "Eau de Cologne"], ["EDT", "Eau de Toilette"], ["EDP", "Eau de Parfum"], ["Parfum", "Parfum"], ["Extrait", "Extrait de parfum"], ["Huile", "Huile parfumée"], ["Autre", "Autre"]];
+const concLabel = c => (CONC.find(x => x[0] === c) || [c, c])[1];
+const FAMILIES = ["Ambré", "Aromatique", "Aquatique", "Boisé", "Chypré", "Cuiré", "Épicé", "Floral", "Fougère", "Fruité", "Gourmand", "Hespéridé", "Musqué", "Oriental", "Poudré", "Vert"];
+const STATUS = [["neuf", "Neuf"], ["ouvert", "Ouvert"], ["termine", "Terminé"]];
+const statusLabel = s => (STATUS.find(x => x[0] === s) || ["", "—"])[1];
+const SORTS = [["added", "Date d’ajout"], ["alpha", "Alphabétique"], ["priceAsc", "Prix croissant"], ["priceDesc", "Prix décroissant"], ["purchase", "Date d’achat"]];
+const FONTS = [["system", "Système", "SF Pro, net et natif"], ["manrope", "Manrope", "Géométrique, moderne"], ["dmsans", "DM Sans", "Doux et lisible"], ["cormorant", "Cormorant", "Serif, parfumerie"]];
+const FONT_PREVIEW = { system: "-apple-system,BlinkMacSystemFont,sans-serif", manrope: "Manrope,sans-serif", dmsans: "'DM Sans',sans-serif", cormorant: "'Cormorant Garamond',serif" };
+const DEFAULTS = { theme: "auto", font: "system", textScale: 100, cardStyle: "verre", layout: "grid", blur: 24, alpha: 50,
+  motion: matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduced" : "full", sort: "added" };
+
+/* ============ Icônes ============ */
+const P = {
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
+  sliders: '<path d="M4 8h8M18 8h2M4 16h2M12 16h8"/><circle cx="15" cy="8" r="2.4"/><circle cx="9" cy="16" r="2.4"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
+  moon: '<path d="M20 14.6A8 8 0 1 1 9.4 4a6.4 6.4 0 0 0 10.6 10.6z"/>',
+  bottle: '<path d="M9.5 2.5h5v3.5h-5z"/><path d="M10.5 6v2.5M13.5 6v2.5"/><rect x="5.5" y="8.5" width="13" height="13" rx="2.5"/>',
+  gem: '<path d="M6.5 3.5h11l3.5 5-9 12.5-9-12.5z"/><path d="M3 8.5h18M9.5 3.5L8 8.5l4 12.5 4-12.5-1.5-5"/>',
+  heart: '<path d="M12 20.3s-8-4.7-8-10.6A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.7c0 5.9-8 10.6-8 10.6z"/>',
+  wallet: '<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M15.5 13.5h2"/><path d="M5.5 7l9.5-3.5L16.5 7"/>',
+  home: '<path d="M4 10.5L12 4l8 6.5V20a.8.8 0 0 1-.8.8H14.5v-5.5h-5v5.5H4.8A.8.8 0 0 1 4 20z"/>',
+  grid: '<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
+  list: '<path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r=".9"/><circle cx="4.8" cy="12" r=".9"/><circle cx="4.8" cy="17.5" r=".9"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  chevR: '<path d="M9.5 6l6 6-6 6"/>',
+  chevL: '<path d="M14.5 6l-6 6 6 6"/>',
+  x: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+  edit: '<path d="M4 20h4.2L19 9.2 14.8 5 4 15.8z"/><path d="M13 6.8l4.2 4.2"/>',
+  copy: '<rect x="8.5" y="8.5" width="12" height="12" rx="2.5"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/>',
+  trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  image: '<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  bag: '<path d="M5 8h14l-1 12.5H6z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>',
+  chart: '<path d="M5 20V11M11 20V5M17 20v-6M3 20.5h18"/>',
+  down: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  up: '<path d="M12 15V4M7 9l5-5 5 5M5 20h14"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  share: '<path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5v9.5h14V11h-1"/>',
+  minus: '<path d="M5 12h14"/>'
+};
+const ic = (n, c = "") => `<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
+
+/* Flacon dessiné quand aucune photo n'est fournie */
+const VARIANTS = ["square", "tall", "round", "block"];
+function variantFor(id) { let h = 0; for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return VARIANTS[h % 4]; }
+function bottle(v) {
+  let lines = ""; for (let y = 9; y <= 33; y += 4) lines += `<path class="b-line" d="M48 ${y}h24"/>`;
+  let vl = ""; for (let x = 45.5; x <= 75; x += 3) vl += `<path class="b-line" d="M${x} 10v30"/>`;
+  const shapes = {
+    square: '<rect class="b-cap" x="44" y="12" width="32" height="26" rx="3"/><rect class="b-cap" x="51" y="38" width="18" height="6"/><rect class="b-glass" x="22" y="44" width="76" height="106" rx="7"/><rect class="b-hi" x="28" y="50" width="5" height="92" rx="2.5"/><rect class="b-lab" x="46" y="90" width="28" height="2" rx="1"/><rect class="b-lab" x="52" y="96" width="16" height="1.5" rx=".75"/>',
+    tall: '<rect class="b-cap" x="49" y="6" width="22" height="32" rx="2"/><rect class="b-glass" x="36" y="38" width="48" height="114" rx="3"/><rect class="b-hi" x="41" y="44" width="4" height="100" rx="2"/><rect class="b-lab" x="58.5" y="70" width="3" height="44" rx="1.5"/>',
+    round: `<rect class="b-cap" x="47" y="4" width="26" height="32" rx="4"/>${lines}<rect class="b-cap" x="53" y="36" width="14" height="8"/><rect class="b-clear" x="32" y="44" width="56" height="108" rx="12"/><rect class="b-hi" x="38" y="52" width="5" height="90" rx="2.5"/><rect class="b-lab" x="40" y="80" width="40" height="24" rx="1.5"/>`,
+    block: `<rect class="b-cap" x="42" y="8" width="36" height="34" rx="2"/>${vl}<rect class="b-cap" x="52" y="42" width="16" height="6"/><rect class="b-glass" x="18" y="48" width="84" height="102" rx="4"/><rect class="b-hi" x="24" y="54" width="5" height="88" rx="2.5"/><rect class="b-lab" x="44" y="116" width="32" height="14" rx="1"/>`
+  };
+  return `<svg class="bottle" viewBox="0 0 120 160" aria-hidden="true"><ellipse class="b-sh" cx="60" cy="154" rx="40" ry="4"/>${shapes[v] || shapes.square}</svg>`;
+}
+
+/* ============ Stockage (IndexedDB) ============
+   Couche « dépôt » unique : all / get / put / del / clear.
+   Chaque fiche porte id, createdAt, updatedAt : un adaptateur de synchronisation cloud
+   pourra plus tard comparer updatedAt et pousser/tirer les fiches sans toucher à l'interface. */
+const DB = (() => {
+  const NAME = "parfum-db", VER = 1, STORES = ["perfumes", "wishlist", "images", "kv"];
+  let dbp = null, mem = null;
+  function open() {
+    if (dbp) return dbp;
+    dbp = new Promise((res, rej) => {
+      let r; try { r = indexedDB.open(NAME, VER); } catch (e) { return rej(e); }
+      r.onupgradeneeded = () => { const d = r.result; for (const s of STORES) if (!d.objectStoreNames.contains(s)) d.createObjectStore(s); };
+      r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked"));
+    });
+    return dbp;
+  }
+  function req(store, mode, fn) {
+    if (mem) return Promise.resolve(fn(memStore(store)));
+    return open().then(d => new Promise((res, rej) => {
+      const t = d.transaction(store, mode); const q = fn(t.objectStore(store));
+      t.oncomplete = () => res(q && "result" in q ? q.result : undefined);
+      t.onerror = () => rej(t.error); t.onabort = () => rej(t.error);
+    }));
+  }
+  function memStore(name) {
+    const m = mem[name] || (mem[name] = new Map());
+    return { getAll: () => ({ result: [...m.values()] }), get: k => ({ result: m.get(k) }), put: (v, k) => (m.set(k, v), { result: k }), delete: k => (m.delete(k), {}), clear: () => (m.clear(), {}) };
+  }
+  return {
+    async ready() { try { await open(); return true; } catch { mem = {}; return false; } },
+    all: s => req(s, "readonly", st => st.getAll()).then(r => r || []),
+    get: (s, k) => req(s, "readonly", st => st.get(k)),
+    put: (s, k, v) => req(s, "readwrite", st => st.put(v, k)),
+    del: (s, k) => req(s, "readwrite", st => st.delete(k)),
+    clear: s => req(s, "readwrite", st => st.clear()),
+    get volatile() { return !!mem; }
+  };
+})();
+
+/* ============ État ============ */
+const emptyFilters = () => ({ brands: [], conc: [], fam: [], status: [], vol: [], min: "", max: "", fav: false });
+const S = { perfumes: [], wishlist: [], img: new Map(), q: "", filters: emptyFilters(), sort: "added", seg: "all", tab: "accueil", settings: { ...DEFAULTS }, wishConfirm: null, wipeConfirm: false };
+
+function loadSettings() {
+  let s = {}; try { s = JSON.parse(localStorage.getItem("parfum.settings") || "{}") || {}; } catch {}
+  S.settings = { ...DEFAULTS, ...s }; S.sort = S.settings.sort || "added";
+}
+function saveSettings() {
+  S.settings.sort = S.sort;
+  try { localStorage.setItem("parfum.settings", JSON.stringify(S.settings)); } catch {}
+  DB.put("kv", "settings", S.settings).catch(() => {});
+}
+const isDark = () => getComputedStyle(document.documentElement).getPropertyValue("--mode-dark").trim() === "1";
+function applySettings() {
+  const r = document.documentElement, st = S.settings;
+  if (st.theme === "auto") r.removeAttribute("data-mode"); else r.setAttribute("data-mode", st.theme);
+  r.dataset.font = st.font; r.dataset.cards = st.cardStyle; r.dataset.motion = st.motion;
+  r.style.setProperty("--blur", st.blur + "px");
+  r.style.setProperty("--ga", (st.alpha / 100).toFixed(2));
+  r.style.fontSize = (16 * st.textScale / 100) + "px";
+  let m = document.querySelector('meta[name="theme-color"]');
+  if (!m) { m = document.createElement("meta"); m.name = "theme-color"; document.head.appendChild(m); }
+  m.content = isDark() ? "#0c0c0e" : "#e9eaec";
+}
+
+/* ============ Images ============ */
+async function compress(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    let w = img.naturalWidth, h = img.naturalHeight; const k = Math.min(1, 1400 / Math.max(w, h));
+    w = Math.round(w * k); h = Math.round(h * k);
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    c.getContext("2d").drawImage(img, 0, 0, w, h);
+    return await new Promise(res => c.toBlob(b => res(b || file), "image/jpeg", .86));
+  } finally { URL.revokeObjectURL(url); }
+}
+async function storeImage(blob) { const id = uid(); await DB.put("images", id, blob); S.img.set(id, URL.createObjectURL(blob)); return id; }
+async function dropImage(id) { if (!id) return; await DB.del("images", id).catch(() => {}); const u = S.img.get(id); if (u) URL.revokeObjectURL(u); S.img.delete(id); }
+async function copyImage(id) { if (!id) return null; const b = await DB.get("images", id); return b ? storeImage(b) : null; }
+async function loadImages() {
+  const ids = [...S.perfumes, ...S.wishlist].map(x => x.imageId).filter(Boolean);
+  await Promise.all(ids.map(async id => { if (S.img.has(id)) return; const b = await DB.get("images", id).catch(() => null); if (b) S.img.set(id, URL.createObjectURL(b)); }));
+}
+const blobToDataURL = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(b); });
+function dataURLToBlob(u) {
+  const [head, data] = String(u).split(","); const mime = (head.match(/data:([^;]+)/) || [])[1] || "image/jpeg";
+  const bin = atob(data); const arr = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+function visual(item) {
+  const u = item.imageId && S.img.get(item.imageId);
+  return u ? `<img src="${u}" alt="${esc(item.name)}" decoding="async">` : bottle(item.variant || variantFor(item.id));
+}
+const hasPhoto = item => !!(item.imageId && S.img.get(item.imageId));
+
+/* ============ Données ============ */
+function upsert(list, obj) { const i = list.findIndex(x => x.id === obj.id); if (i >= 0) list[i] = obj; else list.push(obj); }
+async function savePerfume(p) { p.updatedAt = Date.now(); await DB.put("perfumes", p.id, p); upsert(S.perfumes, p); }
+async function deletePerfume(id) { const p = S.perfumes.find(x => x.id === id); if (!p) return; await DB.del("perfumes", id); await dropImage(p.imageId); S.perfumes = S.perfumes.filter(x => x.id !== id); }
+async function saveWish(w) { w.updatedAt = Date.now(); await DB.put("wishlist", w.id, w); upsert(S.wishlist, w); }
+async function deleteWish(id, keepImage = false) { const w = S.wishlist.find(x => x.id === id); if (!w) return; await DB.del("wishlist", id); if (!keepImage) await dropImage(w.imageId); S.wishlist = S.wishlist.filter(x => x.id !== id); }
+
+function seedExamples() {
+  const now = Date.now();
+  const base = (o, i) => ({ id: uid(), description: "", family: "", notesTop: [], notesHeart: [], notesBase: [], purchaseDate: "", shop: "", status: "neuf", quantity: 1, favorite: false, personalNotes: "", imageId: null, example: true, createdAt: now - (5 - i) * 60000, updatedAt: now, ...o });
+  return [
+    base({ name: "Bleu de Chanel", brand: "Chanel", volume: 100, concentration: "EDP", price: 130, family: "Boisé", notesTop: ["Pamplemousse", "Citron", "Menthe"], notesHeart: ["Gingembre", "Jasmin", "Noix de muscade"], notesBase: ["Encens", "Cèdre", "Santal"], status: "ouvert", favorite: true, purchaseDate: "2025-12-20", shop: "Sephora", variant: "square" }, 4),
+    base({ name: "Y", brand: "Yves Saint Laurent", volume: 100, concentration: "EDT", price: 115, family: "Fougère", notesTop: ["Bergamote", "Gingembre", "Pomme"], notesHeart: ["Sauge", "Genièvre", "Géranium"], notesBase: ["Ambroxan", "Cèdre", "Vétiver"], status: "ouvert", purchaseDate: "2026-03-08", shop: "Nocibé", variant: "tall" }, 3),
+    base({ name: "Sauvage", brand: "Dior", volume: 100, concentration: "EDP", price: 120, family: "Aromatique", notesTop: ["Bergamote"], notesHeart: ["Lavande", "Poivre de Sichuan", "Anis étoilé"], notesBase: ["Ambroxan", "Vanille"], status: "neuf", favorite: true, purchaseDate: "2026-06-14", shop: "Galeries Lafayette", variant: "round" }, 2),
+    base({ name: "Noir de Noir", brand: "Tom Ford", volume: 50, concentration: "EDP", price: 210, family: "Oriental", notesTop: ["Safran"], notesHeart: ["Rose", "Truffe noire"], notesBase: ["Patchouli", "Vanille", "Oud"], status: "neuf", purchaseDate: "2026-09-02", shop: "Printemps", variant: "block" }, 1)
+  ];
+}
+
+/* ============ Recherche, filtres, tri ============ */
+function haystack(p) { return norm([p.name, p.brand, p.family, concLabel(p.concentration), p.concentration, ...(p.notesTop || []), ...(p.notesHeart || []), ...(p.notesBase || []), p.description].join(" ")); }
+function filtered({ seg = false } = {}) {
+  const f = S.filters, toks = norm(S.q).split(/\s+/).filter(Boolean);
+  const min = parseNum(f.min), max = parseNum(f.max);
+  let out = S.perfumes.filter(p => {
+    if (toks.length) { const h = haystack(p); if (!toks.every(t => h.includes(t))) return false; }
+    if (f.fav && !p.favorite) return false;
+    if (f.brands.length && !f.brands.includes((p.brand || "").trim())) return false;
+    if (f.conc.length && !f.conc.includes(p.concentration)) return false;
+    if (f.fam.length && !f.fam.includes(p.family)) return false;
+    if (f.status.length && !f.status.includes(p.status)) return false;
+    if (f.vol.length && !f.vol.includes(p.volume)) return false;
+    if (min != null && (p.price == null || p.price < min)) return false;
+    if (max != null && (p.price == null || p.price > max)) return false;
+    if (seg && S.seg !== "all") { if (S.seg === "fav" ? !p.favorite : p.status !== S.seg) return false; }
+    return true;
+  });
+  const nullLast = (a, b, fn) => (a == null) - (b == null) || fn();
+  const by = {
+    alpha: (a, b) => (a.name || "").localeCompare(b.name || "", "fr", { sensitivity: "base" }),
+    priceAsc: (a, b) => nullLast(a.price, b.price, () => a.price - b.price),
+    priceDesc: (a, b) => nullLast(a.price, b.price, () => b.price - a.price),
+    added: (a, b) => b.createdAt - a.createdAt,
+    purchase: (a, b) => nullLast(a.purchaseDate || null, b.purchaseDate || null, () => (b.purchaseDate || "").localeCompare(a.purchaseDate || ""))
+  };
+  return out.sort(by[S.sort] || by.added);
+}
+function activeFilterCount() { const f = S.filters; return f.brands.length + f.conc.length + f.fam.length + f.status.length + f.vol.length + (f.min !== "" ? 1 : 0) + (f.max !== "" ? 1 : 0) + (f.fav ? 1 : 0); }
+
+/* ============ Statistiques (calculées uniquement depuis vos fiches) ============ */
+function computeStats(list) {
+  const brandMap = new Map(), famMap = new Map(), concMap = new Map();
+  let fav = 0, spent = 0, value = 0, volume = 0, bottles = 0, priced = 0; const st = { neuf: 0, ouvert: 0, termine: 0 };
+  for (const p of list) {
+    const q = Math.max(1, p.quantity || 1); bottles += q;
+    const b = (p.brand || "").trim(); if (b) { const k = norm(b); const e = brandMap.get(k) || { label: b, n: 0 }; e.n++; brandMap.set(k, e); }
+    if (p.family) famMap.set(p.family, (famMap.get(p.family) || 0) + 1);
+    if (p.concentration) concMap.set(p.concentration, (concMap.get(p.concentration) || 0) + 1);
+    if (p.favorite) fav++;
+    if (p.price != null) { priced++; spent += p.price * q; if (p.status !== "termine") value += p.price * q; }
+    if (p.volume != null) volume += p.volume * q;
+    if (st[p.status] != null) st[p.status]++;
+  }
+  const top = m => [...m.entries()].map(([k, v]) => typeof v === "number" ? { label: k, n: v } : v).sort((a, b) => b.n - a.n || a.label.localeCompare(b.label, "fr"));
+  return { count: list.length, bottles, brands: brandMap.size, fav, spent, value, volume, priced, st, topBrands: top(brandMap), topFam: top(famMap), topConc: top(concMap).map(x => ({ ...x, label: concLabel(x.label) })) };
+}
+
+/* ============ Rendu des vues ============ */
+function themeToggle() {
+  const d = isDark();
+  return `<div class="theme-toggle glass" role="group" aria-label="Thème">
+    <button type="button" class="${!d ? "on" : ""}" data-act="theme" data-val="light" aria-pressed="${!d}" aria-label="Mode clair">${ic("sun", "lg")}</button>
+    <span class="sep"></span>
+    <button type="button" class="${d ? "on" : ""}" data-act="theme" data-val="dark" aria-pressed="${d}" aria-label="Mode sombre">${ic("moon", "lg")}</button></div>`;
+}
+function searchBar(id) {
+  const n = activeFilterCount();
+  return `<div class="search glass">${ic("search", "lg")}
+    <input type="search" id="${id}" data-search placeholder="Rechercher un parfum…" value="${esc(S.q)}" autocomplete="off" enterkeyhint="search" aria-label="Rechercher par nom, marque, note ou famille">
+    <button type="button" class="clear" data-act="clear-q" aria-label="Effacer la recherche" ${S.q ? "" : "hidden"}>${ic("x", "sm")}</button>
+    <span class="div"></span>
+    <button type="button" class="filter-btn" data-act="filters" aria-label="Filtres et tri">${ic("sliders", "lg")}${n ? `<span class="badge">${n}</span>` : ""}</button></div>`;
+}
+function card(p) {
+  const meta = [p.volume != null ? `${p.volume} ml` : "", p.concentration ? (p.concentration.length > 7 ? concLabel(p.concentration) : p.concentration) : ""].filter(Boolean).join(" • ");
+  return `<article class="card glass" data-act="open" data-id="${p.id}" tabindex="0" aria-label="${esc(p.name)}${p.brand ? ", " + esc(p.brand) : ""}">
+    <div class="visual ${hasPhoto(p) ? "" : "ph"}">${visual(p)}
+      ${p.example ? '<span class="ex-tag">Exemple</span>' : ""}
+      <button type="button" class="fav ${p.favorite ? "on" : ""}" data-act="fav" data-id="${p.id}" aria-pressed="${!!p.favorite}" aria-label="${p.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}">${ic("heart")}</button></div>
+    <div class="card-body"><h3>${esc(p.name)}</h3><p class="brand">${esc(p.brand || "Marque non renseignée")}</p>
+      <div class="card-meta">${meta ? `<span class="pill">${esc(meta)}</span>` : ""}${p.price != null ? `<span class="price">${money(p.price)}</span>` : ""}</div>
+      <span class="go" aria-hidden="true">${ic("chevR", "sm")}</span></div></article>`;
+}
+const gridHTML = list => `<div class="grid ${S.settings.layout === "list" ? "is-list" : ""}">${list.map(card).join("")}</div>`;
+function emptyCollection() {
+  return `<div class="empty glass">${ic("bottle")}<h3>Votre collection est vide</h3><p>Ajoutez votre premier flacon : une photo, un nom, et le reste quand vous voulez.</p>
+    <button type="button" class="btn" data-act="add">${ic("plus", "sm")}Ajouter un parfum</button></div>`;
+}
+function noMatch() {
+  return `<div class="empty glass">${ic("search")}<h3>Aucun parfum ne correspond</h3><p>Essayez un autre mot, une note comme « vanille », ou retirez des filtres.</p>
+    <button type="button" class="btn ghost" data-act="reset-all">Réinitialiser la recherche</button></div>`;
+}
+function exampleBanner() {
+  const n = S.perfumes.filter(p => p.example).length + S.wishlist.filter(w => w.example).length;
+  return n ? `<div class="note-bar glass"><span>Fiches d’exemple affichées. Vos parfums les remplaceront.</span><button type="button" class="link-btn" data-act="clear-examples">Effacer</button></div>` : "";
+}
+function filtersNote() {
+  const n = activeFilterCount();
+  return n ? `<div class="note-bar glass"><span>${n} filtre${n > 1 ? "s" : ""} actif${n > 1 ? "s" : ""}</span><button type="button" class="link-btn" data-act="reset-filters">Retirer</button></div>` : "";
+}
+function homeResults() { if (!S.perfumes.length) return emptyCollection(); const l = filtered(); return l.length ? gridHTML(l) : noMatch(); }
+
+function viewAccueil() {
+  const st = computeStats(S.perfumes);
+  const tile = (i, v, l, act, on) => `<button type="button" class="tile glass ${on ? "on" : ""}" data-act="${act}" aria-label="${l} : ${v}">${ic(i)}<strong class="num">${v}</strong><span>${l}</span></button>`;
+  return `<header class="top"><div class="brandmark"><h1>PARFUM</h1><p>Perfume collection</p></div>${themeToggle()}</header>
+    ${searchBar("q-home")}
+    <div class="tiles">${tile("bottle", st.count, "Parfums", "stats")}${tile("gem", st.brands, "Marques", "stats")}${tile("heart", st.fav, "Favoris", "fav-filter", S.filters.fav)}${tile("wallet", compactMoney(st.value), "Valeur totale", "stats")}</div>
+    ${exampleBanner()}${filtersNote()}
+    <div id="results">${homeResults()}</div>`;
+}
+function collectionResults() {
+  if (!S.perfumes.length) return emptyCollection();
+  const list = filtered({ seg: true }); if (!list.length) return noMatch();
+  const groups = new Map();
+  for (const p of list) { const b = (p.brand || "").trim() || "Sans marque"; const k = norm(b); if (!groups.has(k)) groups.set(k, { label: b, items: [] }); groups.get(k).items.push(p); }
+  return [...groups.values()].sort((a, b) => a.label.localeCompare(b.label, "fr", { sensitivity: "base" }))
+    .map(g => `<div class="group-h"><h3>${esc(g.label)}</h3><span>${g.items.length} parfum${g.items.length > 1 ? "s" : ""}</span></div>${gridHTML(g.items)}`).join("");
+}
+function viewCollection() {
+  const st = computeStats(S.perfumes), L = S.settings.layout;
+  const segs = [["all", "Tout"], ["fav", "Favoris"], ["neuf", "Neufs"], ["ouvert", "Ouverts"], ["termine", "Terminés"]];
+  return `<div class="view-head"><div><h2>Collection</h2><p>${st.count} parfum${st.count > 1 ? "s" : ""} · ${st.bottles} flacon${st.bottles > 1 ? "s" : ""} · ${st.brands} marque${st.brands > 1 ? "s" : ""}</p></div>
+      <div class="view-switch glass" role="group" aria-label="Affichage"><button type="button" class="${L === "grid" ? "on" : ""}" data-act="layout" data-val="grid" aria-label="Grille">${ic("grid", "sm")}</button><button type="button" class="${L === "list" ? "on" : ""}" data-act="layout" data-val="list" aria-label="Liste">${ic("list", "sm")}</button></div></div>
+    ${searchBar("q-col")}
+    <div class="seg-scroll" role="group" aria-label="Filtre rapide">${segs.map(([k, l]) => `<button type="button" class="chip ${S.seg === k ? "on" : ""}" data-act="seg" data-val="${k}">${l}</button>`).join("")}</div>
+    <button type="button" class="stat-link glass" data-act="stats">${ic("chart")}<span class="k"><strong>Statistiques</strong><span>${money(st.spent)} dépensés · ${fmtVol(st.volume)} de parfum</span></span>${ic("chevR", "sm")}</button>
+    <div class="row-between"><label class="sort">Trier <select id="sort-col" data-sort>${SORTS.map(([k, l]) => `<option value="${k}" ${S.sort === k ? "selected" : ""}>${l}</option>`).join("")}</select></label></div>
+    ${filtersNote()}
+    <div id="results">${collectionResults()}</div>`;
+}
+function wishCard(w) {
+  const confirm = S.wishConfirm === w.id;
+  let url = ""; try { if (w.url) { const u = new URL(/^https?:\/\//i.test(w.url) ? w.url : "https://" + w.url); url = u.href; } } catch {}
+  return `<article class="wish glass"><div class="visual ${hasPhoto(w) ? "" : "ph"}">${visual(w)}${w.example ? '<span class="ex-tag">Exemple</span>' : ""}</div>
+    <div class="wish-body"><h3>${esc(w.name)}</h3><p class="brand">${esc(w.brand || "Marque non renseignée")}</p>
+      ${w.price != null ? `<span class="price">${money(w.price)} <small style="color:var(--ink-3);font-weight:400">estimé</small></span>` : ""}
+      ${w.notes ? `<p class="notes">${esc(w.notes)}</p>` : ""}
+      <div class="wish-actions">${confirm
+        ? `<button type="button" class="mini warn" data-act="wish-del" data-id="${w.id}">${ic("trash", "sm")}Supprimer</button><button type="button" class="mini" data-act="wish-del-cancel">Annuler</button>`
+        : `<button type="button" class="mini primary" data-act="wish-buy" data-id="${w.id}">${ic("bag", "sm")}Acheté</button>
+           ${url ? `<a class="mini" href="${esc(url)}" target="_blank" rel="noopener">${ic("link", "sm")}Lien</a>` : ""}
+           <button type="button" class="mini" data-act="wish-edit" data-id="${w.id}" aria-label="Modifier">${ic("edit", "sm")}</button>
+           <button type="button" class="mini" data-act="wish-del-ask" data-id="${w.id}" aria-label="Supprimer">${ic("trash", "sm")}</button>`}</div></div></article>`;
+}
+function viewWishlist() {
+  const total = S.wishlist.reduce((s, w) => s + (w.price || 0), 0);
+  const list = [...S.wishlist].sort((a, b) => b.createdAt - a.createdAt);
+  return `<div class="view-head"><div><h2>Wishlist</h2><p>${list.length} envie${list.length > 1 ? "s" : ""}${total ? " · " + money(total) + " estimés" : ""}</p></div></div>
+    ${list.length ? `<div class="stack two">${list.map(wishCard).join("")}</div>`
+      : `<div class="empty glass">${ic("heart")}<h3>Aucune envie pour l’instant</h3><p>Notez les parfums qui vous tentent. Le jour de l’achat, un geste suffit pour les faire entrer dans la collection.</p>
+         <button type="button" class="btn" data-act="add-wish">${ic("plus", "sm")}Ajouter à la wishlist</button></div>`}`;
+}
+function seg(key, opts) { return `<div class="seg" role="group">${opts.map(([v, l]) => `<button type="button" class="${S.settings[key] === v ? "on" : ""}" data-act="set" data-key="${key}" data-val="${v}" aria-pressed="${S.settings[key] === v}">${l}</button>`).join("")}</div>`; }
+function viewParametres() {
+  const st = S.settings, nEx = S.perfumes.filter(p => p.example).length + S.wishlist.filter(w => w.example).length;
+  const range = (key, min, max, step, label, sub, unit) => `<div class="set-row col"><div class="row-between"><div class="k"><strong>${label}</strong>${sub ? `<span>${sub}</span>` : ""}</div><span class="v" id="v-${key}">${st[key]}${unit}</span></div>
+      <input type="range" id="r-${key}" data-setting="${key}" data-unit="${unit}" min="${min}" max="${max}" step="${step}" value="${st[key]}" aria-label="${label}"></div>`;
+  return `<div class="view-head"><div><h2>Paramètres</h2><p>Apparence, affichage et sauvegardes</p></div></div>
+    <h3 class="group-title">Apparence</h3>
+    <div class="group glass">
+      <div class="set-row col"><div class="k"><strong>Thème</strong><span>Automatique suit le réglage de l’iPhone</span></div>${seg("theme", [["light", "Clair"], ["dark", "Sombre"], ["auto", "Auto"]])}</div>
+      <div class="set-row col"><div class="k"><strong>Police</strong></div><div class="font-opts">${FONTS.map(([k, l, d]) => `<button type="button" class="${st.font === k ? "on" : ""}" data-act="set" data-key="font" data-val="${k}"><b style="font-family:${FONT_PREVIEW[k]}">${l}</b><small>${d}</small></button>`).join("")}</div></div>
+      ${range("textScale", 85, 125, 5, "Taille du texte", "", " %")}
+    </div>
+    <h3 class="group-title">Cartes</h3>
+    <div class="group glass">
+      <div class="set-row col"><div class="k"><strong>Style des cartes</strong></div>${seg("cardStyle", [["verre", "Verre"], ["mat", "Mat"], ["contour", "Contour"]])}</div>
+      <div class="set-row col"><div class="k"><strong>Affichage</strong></div>${seg("layout", [["grid", "Grille"], ["list", "Liste"]])}</div>
+    </div>
+    <h3 class="group-title">Liquid Glass</h3>
+    <div class="group glass">
+      ${range("blur", 0, 40, 2, "Flou", "Intensité du verre dépoli", " px")}
+      ${range("alpha", 15, 90, 5, "Opacité du verre", "Plus bas = plus transparent", " %")}
+      <div class="set-row col"><div class="k"><strong>Animations</strong></div>${seg("motion", [["full", "Complètes"], ["reduced", "Réduites"], ["none", "Aucune"]])}</div>
+    </div>
+    <h3 class="group-title">Données</h3>
+    <div class="group glass">
+      <div class="set-row"><div class="k"><strong>Stockage</strong><span>${DB.volatile ? "Indisponible dans ce navigateur : les données ne seront pas conservées" : "Sur cet appareil, photos comprises"}</span></div><span class="v">${S.perfumes.length} · ${S.wishlist.length}</span></div>
+      <div class="set-row"><div class="k"><strong>Exporter la collection</strong><span>Fichier JSON avec photos, wishlist et réglages</span></div><button type="button" class="mini" data-act="export">${ic("down", "sm")}Exporter</button></div>
+      <div class="set-row"><div class="k"><strong>Importer une sauvegarde</strong><span>Fusionne avec les fiches existantes</span></div><button type="button" class="mini" data-act="import">${ic("up", "sm")}Importer</button></div>
+      ${nEx ? `<div class="set-row"><div class="k"><strong>Fiches d’exemple</strong><span>${nEx} fiche${nEx > 1 ? "s" : ""} de démonstration</span></div><button type="button" class="mini" data-act="clear-examples">Effacer</button></div>` : ""}
+      <div class="set-row"><div class="k"><strong>Tout effacer</strong><span>Supprime parfums, wishlist et photos</span></div>
+        ${S.wipeConfirm ? `<span style="display:flex;gap:6px"><button type="button" class="mini" data-act="wipe-cancel">Annuler</button><button type="button" class="mini warn" data-act="wipe">Confirmer</button></span>` : `<button type="button" class="mini warn" data-act="wipe-ask">Effacer</button>`}</div>
+    </div>
+    ${isStandalone() ? "" : `<h3 class="group-title">Installer sur iPhone</h3><div class="group glass"><div class="set-row col"><ol class="steps"><li>Ouvrez cette page dans Safari.</li><li>Touchez le bouton Partager ${ic("share", "sm")}.</li><li>Choisissez « Sur l’écran d’accueil », puis « Ajouter ».</li></ol></div></div>`}
+    <p class="foot">PARFUM · version 1.0</p>`;
+}
+const VIEWS = { accueil: viewAccueil, collection: viewCollection, wishlist: viewWishlist, parametres: viewParametres };
+const TABS = [["accueil", "Accueil", "home"], ["collection", "Collection", "grid"], ["wishlist", "Wishlist", "heart"], ["parametres", "Paramètres", "gear"]];
+
+function renderView() {
+  const focusedId = document.activeElement && document.activeElement.id;
+  $("#view").innerHTML = VIEWS[S.tab]();
+  $("#tabbar").innerHTML = TABS.map(([k, l, i]) => `<button type="button" class="${S.tab === k ? "on" : ""}" data-act="tab" data-val="${k}" aria-current="${S.tab === k ? "page" : "false"}">${ic(i, "lg")}<span>${l}</span></button>`).join("");
+  const fab = $("#fab");
+  fab.hidden = S.tab === "parametres";
+  if (S.tab === "wishlist") { fab.dataset.act = "add-wish"; fab.innerHTML = `${ic("plus", "lg")}<span>Ajouter à la wishlist</span>`; }
+  else { fab.dataset.act = "add"; fab.innerHTML = `${ic("plus", "lg")}<span>Ajouter un parfum</span>`; }
+  if (focusedId) { const el = document.getElementById(focusedId); if (el && el.matches("input")) { el.focus(); if (el.type === "search") el.setSelectionRange(el.value.length, el.value.length); } }
+}
+function renderResults() {
+  const r = $("#results"); if (!r) return;
+  r.innerHTML = S.tab === "collection" ? collectionResults() : homeResults();
+  document.querySelectorAll(".search .clear").forEach(b => b.hidden = !S.q);
+}
+
+/* ============ Pages superposées ============ */
+const stack = [];
+function lock() { document.body.classList.toggle("locked", stack.length > 0); }
+function paint(o) { const t = o.body || o.el; const top = t.scrollTop; t.innerHTML = o.render(o); t.scrollTop = top; o.after && o.after(o); }
+function openPage(render, opts = {}) {
+  const el = document.createElement("div"); el.className = "ov"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true");
+  document.body.appendChild(el);
+  const o = { el, render, ...opts }; stack.push(o); paint(o); lock();
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("in")));
+  return o;
+}
+function openSheet(render, opts = {}) {
+  const el = document.createElement("div"); el.className = "sheet-wrap"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true");
+  el.innerHTML = `<div class="scrim" data-act="close"></div><div class="sheet"></div>`;
+  document.body.appendChild(el);
+  const o = { el, body: el.querySelector(".sheet"), render, ...opts }; stack.push(o); paint(o); lock();
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("in")));
+  return o;
+}
+function closeTop() {
+  const o = stack.pop(); if (!o) return;
+  o.el.classList.remove("in"); lock();
+  const ms = S.settings.motion === "none" ? 0 : 400; setTimeout(() => o.el.remove(), ms);
+}
+function closeAll() { while (stack.length) closeTop(); }
+function refresh() { renderView(); for (const o of stack) if (o.live) paint(o); }
+
+/* ---- Fiche détaillée ---- */
+function openDetail(id) {
+  const o = openPage(o => {
+    const p = S.perfumes.find(x => x.id === id);
+    if (!p) return `<div class="ov-inner"><div class="ov-bar"><button type="button" class="icon-btn glass" data-act="close" aria-label="Retour">${ic("chevL")}</button></div><div class="empty glass"><h3>Fiche supprimée</h3></div></div>`;
+    const specs = [["Contenance", p.volume != null ? p.volume + " ml" : "—"], ["Concentration", p.concentration ? concLabel(p.concentration) : "—"], ["Famille", p.family || "—"], ["État", statusLabel(p.status)],
+      ["Quantité", (p.quantity || 1) + " flacon" + ((p.quantity || 1) > 1 ? "s" : "")], ["Achat", fmtDate(p.purchaseDate)], ["Magasin", p.shop || "—"], ["Ajouté le", new Date(p.createdAt).toLocaleDateString("fr-FR")]];
+    const row = (l, arr) => arr && arr.length ? `<div class="pyr-row"><span>${l}</span><div class="notes-chips">${arr.map(n => `<i>${esc(n)}</i>`).join("")}</div></div>` : "";
+    const pyr = row("Tête", p.notesTop) + row("Cœur", p.notesHeart) + row("Fond", p.notesBase);
+    return `<div class="ov-inner">
+      <div class="ov-bar"><button type="button" class="icon-btn glass" data-act="close" aria-label="Retour">${ic("chevL")}</button><span class="spacer"></span>
+        <button type="button" class="icon-btn glass fav-d ${p.favorite ? "on" : ""}" data-act="fav" data-id="${p.id}" aria-pressed="${!!p.favorite}" aria-label="${p.favorite ? "Retirer des favoris" : "Ajouter aux favoris"}">${p.favorite ? ic("heart").replace('class="ic ', 'style="fill:currentColor" class="ic ') : ic("heart")}</button></div>
+      <div class="visual hero glass ${hasPhoto(p) ? "" : "ph"}">${visual(p)}${p.example ? '<span class="ex-tag">Exemple</span>' : ""}</div>
+      <div class="d-head"><p class="eyebrow">${esc(p.brand || "Marque non renseignée")}</p><h1>${esc(p.name)}</h1>
+        <div class="d-price">${p.price != null ? `<strong class="num">${money(p.price)}</strong>` : ""}${p.concentration ? `<span class="pill">${esc(p.concentration)}</span>` : ""}<span class="pill">${statusLabel(p.status)}</span></div></div>
+      <dl class="specs glass">${specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+      ${pyr ? `<section class="sec glass"><h3>Pyramide olfactive</h3><div class="pyr">${pyr}</div></section>` : ""}
+      ${p.description ? `<section class="sec glass"><h3>Description</h3><p>${esc(p.description)}</p></section>` : ""}
+      ${p.personalNotes ? `<section class="sec glass"><h3>Notes personnelles</h3><p>${esc(p.personalNotes)}</p></section>` : ""}
+      ${o.confirm
+        ? `<div class="confirm glass"><p>Supprimer « ${esc(p.name)} » et sa photo ? Cette action est définitive.</p><div class="row"><button type="button" class="btn ghost" data-act="del-cancel">Annuler</button><button type="button" class="btn danger solid" data-act="del" data-id="${p.id}">Supprimer</button></div></div>`
+        : `<div class="d-actions"><button type="button" class="btn" data-act="edit" data-id="${p.id}">${ic("edit", "sm")}Modifier</button><button type="button" class="btn ghost" data-act="dup" data-id="${p.id}">${ic("copy", "sm")}Dupliquer</button><button type="button" class="btn danger" data-act="del-ask">${ic("trash", "sm")}Supprimer</button></div>`}
+    </div>`;
+  }, { live: true, kind: "detail", id });
+  return o;
+}
+
+/* ---- Formulaires ---- */
+const field = (label, input, opt = true) => `<label class="field"><span>${label}${opt ? "" : " <em>· obligatoire</em>"}</span>${input}</label>`;
+const inp = (name, val, attrs = "") => `<input name="${name}" id="f-${name}" value="${esc(val ?? "")}" ${attrs}>`;
+function photoBlock(st, item) {
+  const u = st.newURL || (st.removed ? null : (st.imageId && S.img.get(st.imageId)));
+  return `<div class="visual photo glass ${u ? "" : "ph"}">${u ? `<img src="${u}" alt="Photo du flacon">` : bottle(item.variant || variantFor(item.id))}</div>
+    <div class="photo-actions">
+      <label class="mini">${ic("camera", "sm")}Appareil photo<input type="file" accept="image/*" capture="environment" data-photo hidden></label>
+      <label class="mini">${ic("image", "sm")}Galerie<input type="file" accept="image/*" data-photo hidden></label>
+      ${u ? `<button type="button" class="mini warn" data-fact="photo-remove">${ic("x", "sm")}Retirer</button>` : ""}</div>`;
+}
+function wirePhoto(o, st, item) {
+  const box = o.el.querySelector("[data-photobox]");
+  const draw = () => { box.innerHTML = photoBlock(st, item); };
+  o.el.addEventListener("change", async e => {
+    if (!e.target.matches("[data-photo]")) return;
+    const f = e.target.files && e.target.files[0]; if (!f) return;
+    try { const b = await compress(f); if (st.newURL) URL.revokeObjectURL(st.newURL); st.newBlob = b; st.newURL = URL.createObjectURL(b); st.removed = false; draw(); }
+    catch { toast("Image illisible. Essayez une photo JPEG ou PNG."); }
+  });
+  o.el.addEventListener("click", e => {
+    if (e.target.closest('[data-fact="photo-remove"]')) { if (st.newURL) URL.revokeObjectURL(st.newURL); st.newBlob = null; st.newURL = null; st.removed = true; draw(); }
+  });
+}
+async function resolveImage(st, previousId) {
+  if (st.newBlob) { const id = await storeImage(st.newBlob); URL.revokeObjectURL(st.newURL); return { id, drop: previousId }; }
+  if (st.removed) return { id: null, drop: previousId };
+  return { id: previousId || null, drop: null };
+}
+function datalist(id, values) { return `<datalist id="${id}">${[...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr")).map(v => `<option value="${esc(v)}">`).join("")}</datalist>`; }
+
+function openPerfumeForm(existing, { prefill = {}, fromWish = null } = {}) {
+  const p = existing ? { ...existing } : { id: uid(), name: "", brand: "", description: "", volume: null, concentration: "", family: "", notesTop: [], notesHeart: [], notesBase: [], price: null, purchaseDate: "", shop: "", status: "neuf", quantity: 1, favorite: false, personalNotes: "", imageId: null, ...prefill };
+  const st = { imageId: p.imageId, newBlob: null, newURL: null, removed: false };
+  const brands = S.perfumes.map(x => x.brand).concat(S.wishlist.map(x => x.brand));
+  const o = openPage(() => `<div class="ov-inner"><form id="pf" novalidate>
+    <div class="ov-bar solid"><button type="button" class="txt-btn" data-act="close">Annuler</button><h2>${existing ? "Modifier" : fromWish ? "Ajouter à la collection" : "Nouveau parfum"}</h2><button type="submit" class="txt-btn strong">Enregistrer</button></div>
+    <div data-photobox>${photoBlock(st, p)}</div>
+    <section class="f-sec glass"><h3>Informations principales</h3>
+      <label class="field" id="name-field"><span>Nom <em>· obligatoire</em></span>${inp("name", p.name, 'autocomplete="off" required placeholder="Ex. Terre d’Hermès"')}<span class="msg" hidden>Indiquez le nom du parfum.</span></label>
+      ${field("Marque", inp("brand", p.brand, 'list="dl-brand" autocomplete="off"') + datalist("dl-brand", brands))}
+      ${field("Description", `<textarea name="description" id="f-description" placeholder="Son caractère, l’occasion idéale…">${esc(p.description)}</textarea>`)}
+    </section>
+    <section class="f-sec glass"><h3>Caractéristiques</h3>
+      <div class="f-row">${field("Contenance (ml)", inp("volume", p.volume, 'inputmode="decimal" placeholder="100"'))}
+        ${field("Concentration", `<select name="concentration" id="f-concentration"><option value="">—</option>${CONC.map(([k, l]) => `<option value="${k}" ${p.concentration === k ? "selected" : ""}>${l}</option>`).join("")}</select>`)}</div>
+      ${field("Famille olfactive", inp("family", p.family, 'list="dl-fam" autocomplete="off" placeholder="Boisé, Floral…"') + datalist("dl-fam", FAMILIES.concat(S.perfumes.map(x => x.family))))}
+      ${field("Notes de tête", inp("notesTop", (p.notesTop || []).join(", "), 'autocomplete="off" placeholder="Bergamote, citron"'))}
+      ${field("Notes de cœur", inp("notesHeart", (p.notesHeart || []).join(", "), 'autocomplete="off" placeholder="Iris, jasmin"'))}
+      ${field("Notes de fond", inp("notesBase", (p.notesBase || []).join(", "), 'autocomplete="off" placeholder="Vanille, santal"'))}
+      <p class="hint" style="margin:-4px 0 0">Séparez les notes par des virgules.</p>
+    </section>
+    <section class="f-sec glass"><h3>Achat</h3>
+      <div class="f-row">${field("Prix d’achat (€)", inp("price", p.price, 'inputmode="decimal" placeholder="0"'))}${field("Date d’achat", inp("purchaseDate", p.purchaseDate, 'type="date"'))}</div>
+      ${field("Magasin ou site", inp("shop", p.shop, 'list="dl-shop" autocomplete="off"') + datalist("dl-shop", S.perfumes.map(x => x.shop)))}
+    </section>
+    <section class="f-sec glass"><h3>Collection</h3>
+      <div class="field"><span>État du flacon</span><div class="seg">${STATUS.map(([k, l]) => `<label><input type="radio" name="status" value="${k}" ${p.status === k ? "checked" : ""}><span>${l}</span></label>`).join("")}</div></div>
+      <div class="row-between"><span style="font-size:.95rem">Quantité possédée</span><div class="stepper field"><button type="button" data-fact="q-" aria-label="Moins">${ic("minus", "sm")}</button><input name="quantity" id="f-quantity" inputmode="numeric" value="${p.quantity || 1}" aria-label="Quantité"><button type="button" data-fact="q+" aria-label="Plus">${ic("plus", "sm")}</button></div></div>
+      <label class="switch"><span style="font-size:.95rem">Favori</span><input type="checkbox" name="favorite" id="f-favorite" ${p.favorite ? "checked" : ""}><i></i></label>
+      ${field("Notes personnelles", `<textarea name="personalNotes" id="f-personalNotes" placeholder="Tenue, sillage, souvenirs…">${esc(p.personalNotes)}</textarea>`)}
+    </section>
+    <div style="margin-top:18px"><button type="submit" class="btn" style="width:100%">${ic("check", "sm")}Enregistrer</button></div>
+  </form></div>`, { kind: "form" });
+  wirePhoto(o, st, p);
+  o.el.addEventListener("click", e => {
+    const b = e.target.closest("[data-fact]"); if (!b) return; const q = o.el.querySelector("#f-quantity");
+    if (b.dataset.fact === "q-") q.value = Math.max(1, (parseInt(q.value) || 1) - 1);
+    if (b.dataset.fact === "q+") q.value = Math.min(99, (parseInt(q.value) || 1) + 1);
+  });
+  const form = o.el.querySelector("#pf");
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const fd = new FormData(form), name = String(fd.get("name") || "").trim();
+    const nf = o.el.querySelector("#name-field");
+    if (!name) { nf.classList.add("err"); nf.querySelector(".msg").hidden = false; nf.querySelector("input").focus(); o.el.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    form.querySelectorAll("button[type=submit]").forEach(b => b.disabled = true);
+    try {
+      const img = await resolveImage(st, st.imageId);
+      const rec = { ...p, name, brand: String(fd.get("brand") || "").trim(), description: String(fd.get("description") || "").trim(),
+        volume: parseNum(fd.get("volume")), concentration: String(fd.get("concentration") || ""), family: String(fd.get("family") || "").trim(),
+        notesTop: splitList(fd.get("notesTop")), notesHeart: splitList(fd.get("notesHeart")), notesBase: splitList(fd.get("notesBase")),
+        price: parseNum(fd.get("price")), purchaseDate: String(fd.get("purchaseDate") || ""), shop: String(fd.get("shop") || "").trim(),
+        status: String(fd.get("status") || "neuf"), quantity: Math.min(99, Math.max(1, parseInt(fd.get("quantity")) || 1)), favorite: fd.get("favorite") === "on",
+        personalNotes: String(fd.get("personalNotes") || "").trim(), imageId: img.id, example: false, createdAt: existing ? existing.createdAt : Date.now() };
+      await savePerfume(rec);
+      if (img.drop && img.drop !== img.id) await dropImage(img.drop);
+      if (fromWish) await deleteWish(fromWish, true);
+      closeTop(); refresh();
+      toast(existing ? "Fiche mise à jour" : fromWish ? "Ajouté à la collection" : "Parfum ajouté");
+      if (fromWish) { location.hash = "collection"; }
+    } catch (err) { console.error(err); toast("Enregistrement impossible. Réessayez."); form.querySelectorAll("button[type=submit]").forEach(b => b.disabled = false); }
+  });
+  if (!existing && !fromWish) setTimeout(() => { if (matchMedia("(pointer:fine)").matches) o.el.querySelector("#f-name").focus(); }, 380);
+}
+
+function openWishForm(existing) {
+  const w = existing ? { ...existing } : { id: uid(), name: "", brand: "", price: null, url: "", notes: "", imageId: null };
+  const st = { imageId: w.imageId, newBlob: null, newURL: null, removed: false };
+  const o = openPage(() => `<div class="ov-inner"><form id="wf" novalidate>
+    <div class="ov-bar solid"><button type="button" class="txt-btn" data-act="close">Annuler</button><h2>${existing ? "Modifier l’envie" : "Nouvelle envie"}</h2><button type="submit" class="txt-btn strong">Enregistrer</button></div>
+    <div data-photobox>${photoBlock(st, w)}</div>
+    <section class="f-sec glass"><h3>Le parfum</h3>
+      <label class="field" id="wname-field"><span>Nom <em>· obligatoire</em></span>${inp("name", w.name, 'autocomplete="off" placeholder="Ex. Aventus"')}<span class="msg" hidden>Indiquez le nom du parfum.</span></label>
+      ${field("Marque", inp("brand", w.brand, 'list="dl-wbrand" autocomplete="off"') + datalist("dl-wbrand", S.perfumes.map(x => x.brand).concat(S.wishlist.map(x => x.brand))))}
+      ${field("Prix estimé (€)", inp("price", w.price, 'inputmode="decimal" placeholder="0"'))}
+      ${field("Lien", inp("url", w.url, 'type="url" inputmode="url" autocomplete="off" placeholder="https://"'))}
+      ${field("Notes personnelles", `<textarea name="notes" id="f-notes" placeholder="Où le sentir, pourquoi il vous tente…">${esc(w.notes)}</textarea>`)}
+    </section>
+    <div style="margin-top:18px"><button type="submit" class="btn" style="width:100%">${ic("check", "sm")}Enregistrer</button></div>
+  </form></div>`, { kind: "form" });
+  wirePhoto(o, st, w);
+  const form = o.el.querySelector("#wf");
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const fd = new FormData(form), name = String(fd.get("name") || "").trim(), nf = o.el.querySelector("#wname-field");
+    if (!name) { nf.classList.add("err"); nf.querySelector(".msg").hidden = false; nf.querySelector("input").focus(); return; }
+    try {
+      const img = await resolveImage(st, st.imageId);
+      await saveWish({ ...w, name, brand: String(fd.get("brand") || "").trim(), price: parseNum(fd.get("price")), url: String(fd.get("url") || "").trim(),
+        notes: String(fd.get("notes") || "").trim(), imageId: img.id, example: false, createdAt: existing ? existing.createdAt : Date.now() });
+      if (img.drop && img.drop !== img.id) await dropImage(img.drop);
+      closeTop(); refresh(); toast(existing ? "Envie mise à jour" : "Ajouté à la wishlist");
+    } catch (err) { console.error(err); toast("Enregistrement impossible. Réessayez."); }
+  });
+}
+
+/* ---- Filtres ---- */
+function openFilters() {
+  const f = JSON.parse(JSON.stringify(S.filters)); let sort = S.sort;
+  const uniq = arr => [...new Set(arr)];
+  const brands = uniq(S.perfumes.map(p => (p.brand || "").trim()).filter(Boolean)).sort((a, b) => a.localeCompare(b, "fr"));
+  const fams = uniq(S.perfumes.map(p => p.family).filter(Boolean)).sort((a, b) => a.localeCompare(b, "fr"));
+  const concs = CONC.filter(([k]) => S.perfumes.some(p => p.concentration === k));
+  const vols = uniq(S.perfumes.map(p => p.volume).filter(v => v != null)).sort((a, b) => a - b);
+  const chips = (key, items) => items.length ? `<div class="chips">${items.map(([v, l]) => `<button type="button" class="chip ${f[key].includes(v) ? "on" : ""}" data-fk="${key}" data-fv="${esc(String(v))}">${esc(l)}</button>`).join("")}</div>` : `<p class="hint">Aucune valeur dans la collection.</p>`;
+  const o = openSheet(() => `<div class="grabber"></div>
+    <div class="row-between"><h2>Filtres et tri</h2><button type="button" class="icon-btn" data-act="close" aria-label="Fermer">${ic("x")}</button></div>
+    <div class="f-group"><h4>Trier par</h4><div class="chips">${SORTS.map(([k, l]) => `<button type="button" class="chip ${sort === k ? "on" : ""}" data-fsort="${k}">${l}</button>`).join("")}</div></div>
+    <div class="f-group"><label class="switch"><span>Favoris uniquement</span><input type="checkbox" id="ff-fav" ${f.fav ? "checked" : ""}><i></i></label></div>
+    <div class="f-group"><h4>Marque</h4>${chips("brands", brands.map(b => [b, b]))}</div>
+    <div class="f-group"><h4>Prix (€)</h4><div class="f-row"><label class="field"><span>Minimum</span><input id="ff-min" inputmode="decimal" value="${esc(f.min)}" placeholder="0"></label><label class="field"><span>Maximum</span><input id="ff-max" inputmode="decimal" value="${esc(f.max)}" placeholder="—"></label></div></div>
+    <div class="f-group"><h4>Contenance</h4>${chips("vol", vols.map(v => [v, v + " ml"]))}</div>
+    <div class="f-group"><h4>Concentration</h4>${chips("conc", concs)}</div>
+    <div class="f-group"><h4>Famille olfactive</h4>${chips("fam", fams.map(x => [x, x]))}</div>
+    <div class="f-group"><h4>État du flacon</h4>${chips("status", STATUS)}</div>
+    <div class="sheet-foot"><button type="button" class="btn ghost" data-fx="reset">Réinitialiser</button><button type="button" class="btn" data-fx="apply">Afficher ${countWith()}</button></div>`);
+  function readInputs() { f.min = o.body.querySelector("#ff-min").value.trim(); f.max = o.body.querySelector("#ff-max").value.trim(); f.fav = o.body.querySelector("#ff-fav").checked; }
+  function countWith() { const keep = S.filters, ks = S.sort; S.filters = f; const n = filtered().length; S.filters = keep; S.sort = ks; return `${n} parfum${n > 1 ? "s" : ""}`; }
+  const updateCount = () => { const b = o.body.querySelector('[data-fx="apply"]'); if (b) b.textContent = "Afficher " + countWith(); };
+  o.body.addEventListener("click", e => {
+    const c = e.target.closest("[data-fk]"), s = e.target.closest("[data-fsort]"), x = e.target.closest("[data-fx]");
+    if (c) { readInputs(); const k = c.dataset.fk; let v = c.dataset.fv; if (k === "vol") v = Number(v); const i = f[k].indexOf(v); i >= 0 ? f[k].splice(i, 1) : f[k].push(v); c.classList.toggle("on"); updateCount(); }
+    if (s) { sort = s.dataset.fsort; o.body.querySelectorAll("[data-fsort]").forEach(b => b.classList.toggle("on", b === s)); }
+    if (x && x.dataset.fx === "reset") { Object.assign(f, emptyFilters()); sort = "added"; paint(o); }
+    if (x && x.dataset.fx === "apply") { readInputs(); S.filters = f; S.sort = sort; saveSettings(); closeTop(); renderView(); }
+  });
+  o.body.addEventListener("input", () => { readInputs(); updateCount(); });
+}
+
+/* ---- Statistiques ---- */
+function openStats() {
+  openPage(() => {
+    const s = computeStats(S.perfumes), ex = S.perfumes.some(p => p.example);
+    const bars = items => { const max = Math.max(1, ...items.map(i => i.n)); return `<div class="bars">${items.slice(0, 6).map(i => `<div class="bar-row"><span class="l">${esc(i.label)}</span><span class="n">${i.n}</span><span class="t"><b style="width:${(i.n / max * 100).toFixed(1)}%"></b></span></div>`).join("")}</div>`; };
+    const tile = (l, v, sub) => `<div class="st glass"><span>${l}</span><strong>${v}</strong>${sub ? `<small>${sub}</small>` : ""}</div>`;
+    const tot = s.st.neuf + s.st.ouvert + s.st.termine;
+    const splitCol = { neuf: "var(--bar)", ouvert: "color-mix(in srgb,var(--bar) 55%,transparent)", termine: "color-mix(in srgb,var(--bar) 22%,transparent)" };
+    return `<div class="ov-inner">
+      <div class="ov-bar"><button type="button" class="icon-btn glass" data-act="close" aria-label="Retour">${ic("chevL")}</button><span class="spacer"></span></div>
+      <div class="view-head" style="padding-top:0"><div><h2>Statistiques</h2><p>Calculées à partir de vos ${s.count} fiche${s.count > 1 ? "s" : ""}</p></div></div>
+      ${!s.count ? `<div class="empty glass">${ic("chart")}<h3>Rien à mesurer pour l’instant</h3><p>Les chiffres apparaîtront dès votre premier parfum ajouté.</p><button type="button" class="btn" data-act="add">${ic("plus", "sm")}Ajouter un parfum</button></div>` : `
+      <div class="st-grid">
+        ${tile("Parfums", s.count, `${s.bottles} flacon${s.bottles > 1 ? "s" : ""}`)}${tile("Marques", s.brands)}
+        ${tile("Total dépensé", money(s.spent), s.priced < s.count ? `${s.count - s.priced} sans prix` : "")}${tile("Valeur de la collection", money(s.value), "Hors flacons terminés")}
+        ${tile("Contenance totale", fmtVol(s.volume))}${tile("Ouverts", s.st.ouvert)}${tile("Neufs", s.st.neuf)}${tile("Terminés", s.st.termine)}
+      </div>
+      ${tot ? `<section class="sec glass"><h3>État des flacons</h3><div class="split">${STATUS.filter(([k]) => s.st[k]).map(([k]) => `<b style="width:${s.st[k] / tot * 100}%;background:${splitCol[k]}"></b>`).join("")}</div>
+        <div class="legend">${STATUS.map(([k, l]) => `<span><i style="background:${splitCol[k]}"></i>${l} · ${s.st[k]}</span>`).join("")}</div></section>` : ""}
+      <section class="sec glass"><h3>Marques les plus représentées</h3>${s.topBrands.length ? bars(s.topBrands) : '<p class="hint">Renseignez la marque de vos parfums.</p>'}</section>
+      <section class="sec glass"><h3>Familles olfactives</h3>${s.topFam.length ? bars(s.topFam) : '<p class="hint">Renseignez la famille olfactive pour voir la répartition.</p>'}</section>
+      <section class="sec glass"><h3>Concentrations</h3>${s.topConc.length ? bars(s.topConc) : '<p class="hint">Aucune concentration renseignée.</p>'}</section>
+      <p class="fine">Total dépensé = prix d’achat × quantité. Valeur de la collection = même calcul, sans les flacons terminés.${ex ? " Les fiches d’exemple sont incluses tant que vous ne les effacez pas." : ""}</p>`}
+    </div>`;
+  }, { live: true, kind: "stats" });
+}
+
+/* ============ Sauvegarde : export / import ============ */
+async function exportData() {
+  try {
+    const images = {};
+    for (const it of [...S.perfumes, ...S.wishlist]) if (it.imageId) { const b = await DB.get("images", it.imageId); if (b) images[it.imageId] = await blobToDataURL(b); }
+    const data = { app: "parfum", schema: 1, exportedAt: new Date().toISOString(), perfumes: S.perfumes, wishlist: S.wishlist, settings: S.settings, images };
+    const name = `parfum-sauvegarde-${new Date().toISOString().slice(0, 10)}.json`;
+    const file = new File([JSON.stringify(data)], name, { type: "application/json" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: "Sauvegarde Parfum" }); toast("Sauvegarde exportée"); return; }
+      catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    const a = document.createElement("a"); a.href = URL.createObjectURL(file); a.download = name; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+    toast(inFrame ? "L’export fonctionne dans l’app installée, pas dans cet aperçu" : "Sauvegarde téléchargée");
+  } catch (e) { console.error(e); toast("Export impossible. Réessayez."); }
+}
+async function importData(file) {
+  let d; try { d = JSON.parse(await file.text()); } catch { return toast("Fichier illisible : choisissez une sauvegarde .json"); }
+  if (!d || d.app !== "parfum" || !Array.isArray(d.perfumes)) return toast("Ce fichier n’est pas une sauvegarde Parfum");
+  try {
+    for (const [id, u] of Object.entries(d.images || {})) { const b = dataURLToBlob(u); await DB.put("images", id, b); const old = S.img.get(id); if (old) URL.revokeObjectURL(old); S.img.set(id, URL.createObjectURL(b)); }
+    for (const p of d.perfumes) if (p && p.id && p.name) { await DB.put("perfumes", p.id, p); upsert(S.perfumes, p); }
+    for (const w of (d.wishlist || [])) if (w && w.id && w.name) { await DB.put("wishlist", w.id, w); upsert(S.wishlist, w); }
+    if (d.settings) { S.settings = { ...DEFAULTS, ...d.settings }; S.sort = S.settings.sort || "added"; saveSettings(); applySettings(); }
+    refresh(); toast(`${d.perfumes.length} parfum${d.perfumes.length > 1 ? "s" : ""} et ${(d.wishlist || []).length} envie${(d.wishlist || []).length > 1 ? "s" : ""} importés`);
+  } catch (e) { console.error(e); toast("Import interrompu. Vérifiez le fichier."); }
+}
+
+/* ============ Bandeau ============ */
+let toastT;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("in"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("in"), 2600); }
+
+/* ============ Actions ============ */
+const ACTIONS = {
+  tab: el => { location.hash = el.dataset.val; },
+  theme: el => { S.settings.theme = el.dataset.val; saveSettings(); applySettings(); refresh(); },
+  open: el => openDetail(el.dataset.id),
+  fav: async el => { const p = S.perfumes.find(x => x.id === el.dataset.id); if (!p) return; p.favorite = !p.favorite; await savePerfume(p); refresh(); },
+  add: () => { if (stack.length && stack[stack.length - 1].kind === "stats") closeTop(); openPerfumeForm(); },
+  "add-wish": () => openWishForm(),
+  filters: () => openFilters(),
+  stats: () => openStats(),
+  "fav-filter": () => { S.filters.fav = !S.filters.fav; renderView(); },
+  "reset-filters": () => { S.filters = emptyFilters(); renderView(); },
+  "reset-all": () => { S.filters = emptyFilters(); S.q = ""; S.seg = "all"; renderView(); },
+  "clear-q": () => { S.q = ""; renderView(); },
+  close: () => closeTop(),
+  edit: el => { const p = S.perfumes.find(x => x.id === el.dataset.id); if (p) openPerfumeForm(p); },
+  dup: async el => {
+    const p = S.perfumes.find(x => x.id === el.dataset.id); if (!p) return;
+    const copy = { ...p, id: uid(), name: p.name + " (copie)", imageId: await copyImage(p.imageId), example: false, createdAt: Date.now(),
+      notesTop: [...(p.notesTop || [])], notesHeart: [...(p.notesHeart || [])], notesBase: [...(p.notesBase || [])] };
+    await savePerfume(copy); closeTop(); refresh(); openDetail(copy.id); toast("Fiche dupliquée");
+  },
+  "del-ask": () => { const o = stack[stack.length - 1]; o.confirm = true; paint(o); o.el.scrollTo({ top: o.el.scrollHeight, behavior: "smooth" }); },
+  "del-cancel": () => { const o = stack[stack.length - 1]; o.confirm = false; paint(o); },
+  del: async el => { await deletePerfume(el.dataset.id); closeTop(); refresh(); toast("Parfum supprimé"); },
+  layout: el => { S.settings.layout = el.dataset.val; saveSettings(); renderView(); },
+  seg: el => { S.seg = el.dataset.val; renderView(); },
+  "wish-edit": el => { const w = S.wishlist.find(x => x.id === el.dataset.id); if (w) openWishForm(w); },
+  "wish-buy": el => {
+    const w = S.wishlist.find(x => x.id === el.dataset.id); if (!w) return;
+    openPerfumeForm(null, { prefill: { name: w.name, brand: w.brand, price: w.price, personalNotes: w.notes, imageId: w.imageId, purchaseDate: new Date().toISOString().slice(0, 10) }, fromWish: w.id });
+  },
+  "wish-del-ask": el => { S.wishConfirm = el.dataset.id; renderView(); },
+  "wish-del-cancel": () => { S.wishConfirm = null; renderView(); },
+  "wish-del": async el => { await deleteWish(el.dataset.id); S.wishConfirm = null; renderView(); toast("Retiré de la wishlist"); },
+  set: el => { S.settings[el.dataset.key] = el.dataset.val; saveSettings(); applySettings(); renderView(); },
+  export: () => exportData(),
+  import: () => $("#import-file").click(),
+  "clear-examples": async () => {
+    for (const p of S.perfumes.filter(x => x.example)) await deletePerfume(p.id);
+    for (const w of S.wishlist.filter(x => x.example)) await deleteWish(w.id);
+    refresh(); toast("Exemples effacés");
+  },
+  "wipe-ask": () => { S.wipeConfirm = true; renderView(); },
+  "wipe-cancel": () => { S.wipeConfirm = false; renderView(); },
+  wipe: async () => {
+    await Promise.all(["perfumes", "wishlist", "images"].map(s => DB.clear(s)));
+    for (const u of S.img.values()) URL.revokeObjectURL(u);
+    S.img.clear(); S.perfumes = []; S.wishlist = []; S.wipeConfirm = false; S.filters = emptyFilters();
+    renderView(); toast("Toutes les données ont été effacées");
+  }
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]"); if (!el) return;
+  if (el.tagName === "A") return;
+  const fn = ACTIONS[el.dataset.act]; if (!fn) return;
+  e.preventDefault(); fn(el);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && stack.length) { closeTop(); return; }
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches("article[data-act]")) { e.preventDefault(); ACTIONS.open(e.target); }
+});
+document.addEventListener("input", e => {
+  const t = e.target;
+  if (t.matches("[data-search]")) { S.q = t.value; renderResults(); }
+  if (t.matches("[data-setting]")) { const k = t.dataset.setting; S.settings[k] = Number(t.value); const v = $("#v-" + k); if (v) v.textContent = t.value + t.dataset.unit; applySettings(); saveSettings(); }
+});
+document.addEventListener("change", e => {
+  if (e.target.matches("[data-sort]")) { S.sort = e.target.value; saveSettings(); renderView(); }
+  if (e.target.id === "import-file") { const f = e.target.files && e.target.files[0]; if (f) importData(f); e.target.value = ""; }
+});
+document.addEventListener("submit", e => { if (e.target.closest("form")) e.preventDefault(); }, true);
+
+/* ============ Navigation par onglets ============ */
+function fromHash() { const h = location.hash.replace("#", ""); return VIEWS[h] ? h : "accueil"; }
+window.addEventListener("hashchange", () => { closeAll(); S.tab = fromHash(); S.wipeConfirm = false; S.wishConfirm = null; renderView(); window.scrollTo({ top: 0 }); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { applySettings(); refresh(); });
+new MutationObserver(() => { applySettings(); refresh(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+/* ============ Démarrage ============ */
+async function boot() {
+  loadSettings(); applySettings();
+  S.tab = fromHash(); renderView();
+  await DB.ready();
+  try {
+    if (!localStorage.getItem("parfum.settings")) { const kv = await DB.get("kv", "settings"); if (kv) { S.settings = { ...DEFAULTS, ...kv }; S.sort = S.settings.sort || "added"; applySettings(); } }
+  } catch {}
+  S.perfumes = await DB.all("perfumes").catch(() => []);
+  S.wishlist = await DB.all("wishlist").catch(() => []);
+  const seeded = await DB.get("kv", "seeded").catch(() => true);
+  if (!seeded && !S.perfumes.length && !S.wishlist.length) {
+    const ex = seedExamples();
+    for (const p of ex) await savePerfume(p);
+    await saveWish({ id: uid(), name: "Aventus", brand: "Creed", price: 330, url: "", notes: "À sentir en boutique avant d’acheter.", imageId: null, variant: "tall", example: true, createdAt: Date.now() });
+    await DB.put("kv", "seeded", true);
+  }
+  await loadImages();
+  renderView();
+  if (DB.volatile) toast("Stockage indisponible : les données ne seront pas conservées");
+  try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch {}
+  const secure = location.protocol === "https:" || location.hostname === "localhost";
+  if ("serviceWorker" in navigator && !inFrame && secure && document.querySelector('link[rel="manifest"]')) {
+    try { navigator.serviceWorker.register("sw.js").catch(() => {}); } catch {}
+  }
+}
+boot();
+</script>
+
+</body>
+</html>
